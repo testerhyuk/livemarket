@@ -1,7 +1,12 @@
 import React from 'react'
+import BasicLayout from '../layouts/BasicLayout'
+import Banner from '../components/banner/Banner'
 
 export default function MainPage() {
   return (
-    <div>MainPage</div>
+    <BasicLayout>
+        <Banner />
+        <div>MainPage</div>
+    </BasicLayout>
   )
 }
