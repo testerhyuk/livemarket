@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import banner1 from '../../pictures/banner1.png'
 import banner2 from '../../pictures/banner2.png'
 import banner3 from '../../pictures/banner3.png'
+import './css/Banner.css'
 
 export default function Banner() {
     const images = [banner1, banner2, banner3]
@@ -17,8 +18,9 @@ export default function Banner() {
     }, [currentIndex, images.length, intervalTime]);
 
   return (
-    <>
+    <div className='banner'>
         <img src={images[currentIndex]} alt={`banner${currentIndex}`} />
-    </>
+        <div className='division-line'></div>
+    </div>
   )
 }
