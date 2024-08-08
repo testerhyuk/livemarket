@@ -26,7 +26,7 @@ class ProductRepositoryTest {
                 .pname("Test")
                 .pdesc("Test desc")
                 .price(1000)
-                .productCategory(ProductCategory.HOME_APPLIANCES)
+                .category(ProductCategory.HOME_APPLIANCES)
                 .build();
 
         product.addImageString(UUID.randomUUID() + "_" + "Image1.jpg");

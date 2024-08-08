@@ -22,14 +22,14 @@ public class Product {
     private String pdesc;
     private boolean delFlag;
 
-    private ProductCategory productCategory;
+    private ProductCategory category;
 
     @ElementCollection
     @Builder.Default
     private List<ProductImage> imageList = new ArrayList<>();
 
-    public void changeProductCategory(ProductCategory productCategory) {
-        this.productCategory = productCategory;
+    public void changeProductCategory(ProductCategory category) {
+        this.category = category;
     }
 
     public void changePname(String pname) {

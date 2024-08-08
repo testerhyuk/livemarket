@@ -29,5 +29,5 @@ public class ProductDTO {
     private String pdesc;
     // 소프트 삭제를 위한 flag
     private boolean delFlag;
-    private ProductCategory productCategory;
+    private ProductCategory category;
 }
