@@ -1,5 +1,6 @@
 package com.market.livemarket.dto;
 
+import com.market.livemarket.entity.ProductCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,4 +29,5 @@ public class ProductDTO {
     private String pdesc;
     // 소프트 삭제를 위한 flag
     private boolean delFlag;
+    private ProductCategory productCategory;
 }

@@ -1,6 +1,7 @@
 package com.market.livemarket.repository;
 
 import com.market.livemarket.entity.Product;
+import com.market.livemarket.entity.ProductCategory;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ class ProductRepositoryTest {
                 .pname("Test")
                 .pdesc("Test desc")
                 .price(1000)
+                .productCategory(ProductCategory.HOME_APPLIANCES)
                 .build();
 
         product.addImageString(UUID.randomUUID() + "_" + "Image1.jpg");
