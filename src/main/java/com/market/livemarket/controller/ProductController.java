@@ -1,6 +1,10 @@
 package com.market.livemarket.controller;
 
+import com.market.livemarket.dto.PageRequestDTO;
+import com.market.livemarket.dto.PageResponseDTO;
 import com.market.livemarket.dto.ProductDTO;
+import com.market.livemarket.entity.ProductCategory;
+import com.market.livemarket.service.ProductService;
 import com.market.livemarket.util.CustomFileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -18,6 +22,7 @@ import java.util.Map;
 @RequestMapping("/api/products")
 public class ProductController {
     private final CustomFileUtil customFileUtil;
+    private final ProductService productService;
 
     @PostMapping("/")
     public Map<String, String> register(ProductDTO productDTO) {
@@ -36,5 +41,20 @@ public class ProductController {
     @GetMapping("/view/{fileName}")
     public ResponseEntity<Resource> viewFileGet(@PathVariable("fileName") String fileName) {
         return customFileUtil.getFile(fileName);
+    }
+
+    @GetMapping("/list")
+    public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
+        return productService.getList(pageRequestDTO);
+    }
+
+    @GetMapping("/categories/{category}")
+    public PageResponseDTO<ProductDTO> categoryList(PageRequestDTO pageRequestDTO, @PathVariable("category") String category) {
+        return productService.getCategorySearchList(pageRequestDTO, category);
+    }
+
+    @GetMapping("/search")
+    public PageResponseDTO<ProductDTO> searchKeywordList(PageRequestDTO pageRequestDTO, @RequestParam(value="keyword") String keyword) {
+        return productService.getKeywordSearchList(pageRequestDTO, keyword);
     }
 }
