@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @Log4j2
@@ -24,8 +25,9 @@ public class ProductController {
     private final CustomFileUtil customFileUtil;
     private final ProductService productService;
 
+    // 상품 등록
     @PostMapping("/")
-    public Map<String, String> register(ProductDTO productDTO) {
+    public Map<String, Long> register(ProductDTO productDTO) {
         // 파일 리스트 추출
         List<MultipartFile> files = productDTO.getFiles();
 
@@ -35,24 +37,78 @@ public class ProductController {
         // 업로드된 파일 갱신
         productDTO.setUploadedFileNames(uploadedFileNames);
 
-        return Map.of("RESULT", "SUCCESS");
+        Long pno = productService.register(productDTO);
+
+        return Map.of("RESULT", pno);
     }
 
+    // 이미지 파일 조회
     @GetMapping("/view/{fileName}")
     public ResponseEntity<Resource> viewFileGet(@PathVariable("fileName") String fileName) {
         return customFileUtil.getFile(fileName);
     }
 
+    // 상품 목록 조회
     @GetMapping("/list")
     public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
         return productService.getList(pageRequestDTO);
     }
 
+    // 상품 조회
+    @GetMapping("/{pno}")
+    public ProductDTO read(@PathVariable("pno") Long pno) {
+        return productService.get(pno);
+    }
+
+    // 상품 수정
+    @PutMapping("/{pno}")
+    public Map<String, String> modify(@PathVariable Long pno, ProductDTO productDTO) {
+        productDTO.setPno(pno);
+
+        ProductDTO oldProductDTO = productService.get(pno);
+
+        List<MultipartFile> files = productDTO.getFiles();
+        List<String> currentUploadFileNames = customFileUtil.saveFiles(files);
+
+        List<String> uploadedFileNames = productDTO.getUploadedFileNames();
+
+        if(currentUploadFileNames != null && !currentUploadFileNames.isEmpty()) {
+            uploadedFileNames.addAll(currentUploadFileNames);
+        }
+
+        productService.modify(productDTO);
+
+        List<String> oldFileNames = oldProductDTO.getUploadedFileNames();
+
+        if(oldFileNames != null && !oldFileNames.isEmpty()) {
+            List<String> removeFiles = oldFileNames.stream().filter(fileName ->
+                    uploadedFileNames.indexOf(fileName) == -1)
+                    .toList();
+
+            customFileUtil.deleteFiles(removeFiles);
+        }
+
+        return Map.of("RESULT", "SUCCESS");
+    }
+
+    // 상품 삭제 -> delFlag만 수정
+    @PutMapping("/remove/{pno}")
+    public Map<String, String> remove(@PathVariable Long pno) {
+        List<String> oldFileNames = productService.get(pno).getUploadedFileNames();
+        customFileUtil.deleteFiles(oldFileNames);
+
+        productService.remove(pno);
+
+        return Map.of("RESULT", "SUCCESS");
+    }
+
+    // 카테고리별 상품 조회
     @GetMapping("/categories/{category}")
     public PageResponseDTO<ProductDTO> categoryList(PageRequestDTO pageRequestDTO, @PathVariable("category") String category) {
         return productService.getCategorySearchList(pageRequestDTO, category);
     }
 
+    // 사용자 검색
     @GetMapping("/search")
     public PageResponseDTO<ProductDTO> searchKeywordList(PageRequestDTO pageRequestDTO, @RequestParam(value="keyword") String keyword) {
         return productService.getKeywordSearchList(pageRequestDTO, keyword);

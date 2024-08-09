@@ -30,7 +30,7 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
                     .pname(product.getPname())
                     .pdesc(product.getPdesc())
                     .price(product.getPrice())
-                    .category(product.getCategory())
+                    .category(product.getCategory().getCategoryType())
                     .build();
 
             String imageStr = productImage.getFileName();

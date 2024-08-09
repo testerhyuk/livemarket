@@ -14,7 +14,7 @@ public enum ProductCategory {
         this.categoryType = categoryType;
     }
 
-    public static ProductCategory findCategory(String categoryType) {
+    public static ProductCategory StringToProductCategory(String categoryType) {
         return Arrays.stream(values()).filter(
                 typ -> typ.categoryType.equals(categoryType)).findAny().orElseThrow(
                         () -> new IllegalArgumentException("Can't Find Category"));
