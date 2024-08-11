@@ -2,7 +2,10 @@ package com.market.livemarket.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString(exclude = "imageList")
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +31,9 @@ public class Product {
     @ElementCollection
     @Builder.Default
     private List<ProductImage> imageList = new ArrayList<>();
+
+    @CreatedDate
+    private LocalDate date;
 
     public void changeProductCategory(ProductCategory category) {
         this.category = category;

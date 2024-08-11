@@ -26,6 +26,11 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
 
+    // 오늘의 새상품 조회
+    public Optional<List<Product>> getTodaysProduct() {
+        return productRepository.todaysProduct();
+    }
+
     // 상품 등록
     public Long register(ProductDTO productDTO) {
         Product product = dtoToEntity(productDTO);
@@ -131,6 +136,7 @@ public class ProductService {
                 .pdesc(productDTO.getPdesc())
                 .price(productDTO.getPrice())
                 .category(ProductCategory.StringToProductCategory(productDTO.getCategory()))
+                .date(productDTO.getDate())
                 .build();
 
         List<String> uploadFileNames = productDTO.getUploadedFileNames();
@@ -153,6 +159,7 @@ public class ProductService {
                 .price(product.getPrice())
                 .delFlag(product.isDelFlag())
                 .category(product.getCategory().getCategoryType())
+                .date(product.getDate())
                 .build();
 
         List<ProductImage> imageList = product.getImageList();

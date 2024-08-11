@@ -1,12 +1,12 @@
 package com.market.livemarket.dto;
 
-import com.market.livemarket.entity.ProductCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,4 +30,6 @@ public class ProductDTO {
     // 소프트 삭제를 위한 flag
     private boolean delFlag;
     private String category;
+
+    private LocalDate date;
 }

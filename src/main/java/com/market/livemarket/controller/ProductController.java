@@ -3,6 +3,7 @@ package com.market.livemarket.controller;
 import com.market.livemarket.dto.PageRequestDTO;
 import com.market.livemarket.dto.PageResponseDTO;
 import com.market.livemarket.dto.ProductDTO;
+import com.market.livemarket.entity.Product;
 import com.market.livemarket.entity.ProductCategory;
 import com.market.livemarket.service.ProductService;
 import com.market.livemarket.util.CustomFileUtil;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -112,5 +114,11 @@ public class ProductController {
     @GetMapping("/search")
     public PageResponseDTO<ProductDTO> searchKeywordList(PageRequestDTO pageRequestDTO, @RequestParam(value="keyword") String keyword) {
         return productService.getKeywordSearchList(pageRequestDTO, keyword);
+    }
+
+    // 오늘의 새상품 검색
+    @GetMapping("/today_product")
+    public Optional<List<Product>> getTodaysProduct() {
+        return productService.getTodaysProduct();
     }
 }

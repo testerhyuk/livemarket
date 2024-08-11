@@ -15,7 +15,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -56,15 +58,6 @@ class ProductRepositoryTest {
         log.info(product);
         log.info("-----productImageList-----");
         log.info(product.getImageList());
-    }
-
-    @Test
-    @Transactional
-    @Commit
-    public void testDelete() {
-        Long pno = 1L;
-
-        productRepository.updateToDelete(1L, true);
     }
 
     @Test
@@ -117,5 +110,14 @@ class ProductRepositoryTest {
         String keyword = "98";
 
         log.info("result : " + productRepository.searchKeyword(pageRequestDTO, keyword));
+    }
+
+    @Test
+    public void testTodaysProduct() {
+        Optional<List<Product>> todaysProduct = productRepository.todaysProduct();
+
+        List<Product> result = todaysProduct.orElseThrow();
+
+        log.info(result);
     }
 }
