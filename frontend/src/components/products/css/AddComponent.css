@@ -1,0 +1,16 @@
+.form_label {
+    font-weight: bold;
+}
+
+.form_control {
+    width: 86%;
+}
+
+.form_textarea {
+    width: 69%;
+    margin-left: 1.5%;
+}
+
+.form_group {
+    margin: 5% 10% 10% 10%;
+}

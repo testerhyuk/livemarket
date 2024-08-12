@@ -1,40 +1,34 @@
 import { faBell, faUser } from '@fortawesome/free-regular-svg-icons'
-import { faBars, faSearch, faX } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useRef, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import "./css/BasicMenu.css"
 import logo from '../../logo.png'
-import SideMenu from './SideMenu'
+import { Dropdown } from 'react-bootstrap'
 
 export default function BasicMenu() {
-    const [isOpen, setIsOpen] = useState(false);
-    const side = useRef();
-    const toggleMenu = () => {
-        setIsOpen(!isOpen)
-    }
-
   return (
     <div className='nav_layout'>
         <ul className='navbar'>
-            <li className='sidebar'>
-                {isOpen ?
-                    <>
-                        <span onClick={() => toggleMenu()}>
-                            <FontAwesomeIcon className='fa_x' icon={faX} size='2x' color='#8498D9' />  
-                        </span>                  
-                        <SideMenu />
-                    </>
-                    :
+            <li>
+            <Dropdown>
+                <Dropdown.Toggle className='dropdown_toggle'>
                     <FontAwesomeIcon
                         icon={faBars} 
-                        className='fabars' 
+                        className='fabars'
                         size='2x'
-                        onClick={() => toggleMenu()}
                     />
-                }
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu className='dropdown_menu'>
+                    <Dropdown.Item><Link className='all_products' to={'/products/'}>전체 상품</Link></Dropdown.Item>
+                    <Dropdown.Item>Another action</Dropdown.Item>
+                    <Dropdown.Item>Something else</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
             </li>
-            <li className='logo'><Link to={'/'}><img src={logo} width='150px' /></Link></li>
+            <li className='logo'><Link to={'/'}><img src={logo} width='150px' alt='logo' /></Link></li>
             <ul className='navbar2'>
                 <li><FontAwesomeIcon icon={faSearch} className='fasearch' size='2x' /></li>
                 <li><FontAwesomeIcon icon={faBell} className='fabell' size='2x' /></li>

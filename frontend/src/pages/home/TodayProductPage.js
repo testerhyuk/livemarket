@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function NewItem() {
+export default function TodayProductPage() {
   return (
     <div>
         <h2>새로운 상품</h2>

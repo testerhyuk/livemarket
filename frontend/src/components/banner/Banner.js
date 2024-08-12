@@ -1,26 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import banner1 from '../../pictures/banner1.png'
 import banner2 from '../../pictures/banner2.png'
 import banner3 from '../../pictures/banner3.png'
 import './css/Banner.css'
+import { Carousel } from 'react-bootstrap'
 
 export default function Banner() {
     const images = [banner1, banner2, banner3]
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const intervalTime = 3000;
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setCurrentIndex((currentIndex + 1) % images.length);
-        }, intervalTime);
+    const [index, setIndex] = useState(0);
 
-        return () => clearInterval(intervalId);
-    }, [currentIndex, images.length, intervalTime]);
+    const handleSelect = (selectedIndex) => {
+      setIndex(selectedIndex);
+    };
 
   return (
-    <div className='banner'>
-        <img src={images[currentIndex]} alt={`banner${currentIndex}`} />
-        <div className='division-line'></div>
+    <div>
+      <Carousel activeIndex={index} onSelect={handleSelect}>
+        <Carousel.Item>
+          <img className='banner_image' src={images[0]} alt={`banner${0}`} />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img className='banner_image' src={images[1]} alt={`banner${1}`} />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img className='banner_image' src={images[2]} alt={`banner${2}`} />
+        </Carousel.Item>
+      </Carousel>
+      <div className='division-line'></div>
     </div>
   )
 }
