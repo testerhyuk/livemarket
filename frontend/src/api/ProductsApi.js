@@ -12,3 +12,34 @@ export const postAdd = async (product) => {
 
     return res.data
 }
+
+// 상품 목록 조회
+export const getList = async (pageParams) => {
+	const {page, size} = pageParams
+	const res = await axios.get(`${host}/list`, {params: {page:page, size:size}})
+	
+	return res.data
+}
+
+// 상품 상세 페이지
+export const getOne = async (pno) => {
+    const res = await axios.get(`${host}/${pno}`)
+
+    return res.data
+}
+
+// 상품 수정
+export const putOne = async (pno, product) => {
+    const header = {headers: {'Content-Type' : 'multipart/form-data'}}
+	
+	const res = await axios.put(`${host}/${pno}`, product, header)
+	
+	return res.data
+}
+
+// 상품 삭제
+export const deleteOne = async (pno) => {
+	const res = await axios.put(`${host}/remove/${pno}`)
+	
+	return res.data
+}

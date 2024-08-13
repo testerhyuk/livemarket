@@ -50,15 +50,9 @@ export default function AddComponent(props) {
         setFetching(true)
 
         postAdd(formData).then(data => {
-            sleep(3000)
             setFetching(false)
             setResult(data.RESULT)
         })
-    }
-
-    function sleep(ms) {
-        const wakeUpTime = Date.now() + ms;
-        while (Date.now() < wakeUpTime) {}
     }
 
     const closeModal = () => {

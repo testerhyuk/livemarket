@@ -22,7 +22,7 @@ export default function BasicMenu() {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className='dropdown_menu'>
-                    <Dropdown.Item><Link className='all_products' to={'/products/'}>전체 상품</Link></Dropdown.Item>
+                    <Dropdown.Item className='all_products' as={Link} to={'/products/'}>전체 상품</Dropdown.Item>
                     <Dropdown.Item>Another action</Dropdown.Item>
                     <Dropdown.Item>Something else</Dropdown.Item>
                 </Dropdown.Menu>

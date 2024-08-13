@@ -44,7 +44,7 @@ const useCustomMove = () => {
     // 상품 수정 페이지로 이동
     const moveToModify = (num) => {
         navigate({
-            pathname: `/modify/${num}`,
+            pathname: `../modify/${num}`,
             search: queryDefault
         })
     }
