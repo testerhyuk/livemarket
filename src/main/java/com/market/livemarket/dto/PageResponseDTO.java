@@ -47,5 +47,8 @@ public class PageResponseDTO<E> {
         // 더이상 다음 페이지로 이동하지 못한다면 0 아니면 end + 1
         this.nextPage = next ? end + 1 : 0;
 
+        this.totalPage = this.pageNumList.size();
+
+        this.current = pageRequestDTO.getPage();
     }
 }
