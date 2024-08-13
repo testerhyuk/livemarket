@@ -1,7 +1,6 @@
 package com.market.livemarket.repository;
 
 import com.market.livemarket.dto.PageRequestDTO;
-import com.market.livemarket.dto.PageResponseDTO;
 import com.market.livemarket.entity.Product;
 import com.market.livemarket.entity.ProductCategory;
 import lombok.extern.log4j.Log4j2;
@@ -12,10 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.test.annotation.Commit;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
