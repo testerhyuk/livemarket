@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +27,7 @@ public class ProductController {
     private final ProductService productService;
 
     // 상품 등록
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/")
     public Map<String, Long> register(ProductDTO productDTO) {
         // 파일 리스트 추출
@@ -61,6 +63,7 @@ public class ProductController {
     }
 
     // 상품 수정
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PutMapping("/{pno}")
     public Map<String, String> modify(@PathVariable Long pno, ProductDTO productDTO) {
         productDTO.setPno(pno);
@@ -92,6 +95,7 @@ public class ProductController {
     }
 
     // 상품 삭제 -> delFlag만 수정
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PutMapping("/remove/{pno}")
     public Map<String, String> remove(@PathVariable Long pno) {
         List<String> oldFileNames = productService.get(pno).getUploadedFileNames();
