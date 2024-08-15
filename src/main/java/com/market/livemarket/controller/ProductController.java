@@ -120,7 +120,7 @@ public class ProductController {
 
     // 오늘의 새상품 검색
     @GetMapping("/today_product")
-    public Optional<List<Product>> getTodaysProduct() {
+    public List<ProductDTO> getTodaysProduct() {
         return productService.getTodaysProduct();
     }
 }

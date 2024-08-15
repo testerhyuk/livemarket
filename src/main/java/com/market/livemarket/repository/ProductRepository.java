@@ -23,5 +23,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Product
     Page<Object[]> selectList(Pageable pageable);
 
     @Query("select p, pi from Product p left join p.imageList pi where pi.ord=0 and p.date = current_date")
-    Optional<List<Product>> todaysProduct();
+    List<Product> todaysProduct();
 }

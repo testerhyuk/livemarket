@@ -22,7 +22,13 @@ import java.util.Map;
 public class JWTCheckFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        String[] excludedPath = {"/api/member/", "/api/products/list", "/api/products/view/", "/api/products/read/"};
+        String[] excludedPath = {
+                "/api/member/",
+                "/api/products/list",
+                "/api/products/view/",
+                "/api/products/read/",
+                "/api/products/today_product"
+        };
         String path = request.getRequestURI();
 
         return Arrays.stream(excludedPath).anyMatch(path::startsWith);

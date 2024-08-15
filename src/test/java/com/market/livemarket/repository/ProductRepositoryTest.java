@@ -110,10 +110,8 @@ class ProductRepositoryTest {
 
     @Test
     public void testTodaysProduct() {
-        Optional<List<Product>> todaysProduct = productRepository.todaysProduct();
+        List<Product> todaysProduct = productRepository.todaysProduct();
 
-        List<Product> result = todaysProduct.orElseThrow();
-
-        log.info(result);
+        log.info(todaysProduct);
     }
 }

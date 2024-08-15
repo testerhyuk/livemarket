@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +28,20 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     // 오늘의 새상품 조회
-    public Optional<List<Product>> getTodaysProduct() {
-        return productRepository.todaysProduct();
+    public List<ProductDTO> getTodaysProduct() {
+        List<Product> result = productRepository.todaysProduct();
+        List<ProductDTO> resDTO = new ArrayList<>();
+
+        if(result.isEmpty()) {
+            return resDTO;
+        }
+
+        result.forEach(prd -> {
+            ProductDTO productDTO = entityToDTO(prd);
+            resDTO.add(productDTO);
+        });
+
+        return resDTO;
     }
 
     // 상품 등록
