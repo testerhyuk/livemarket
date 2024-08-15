@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Col, Row } from 'react-bootstrap'
+import { Button, Card, Col, Row } from 'react-bootstrap'
 import { API_SERVER_HOST, getList } from '../../api/ProductsApi'
 import useCustomMove from '../../hooks/useCustomMove'
 import FetchingModal from '../common/FetchingModal'
 import PageComponent from '../common/PageComponent'
+import { useNavigate } from 'react-router-dom'
 
 const initState = {
     dtoList: [],
@@ -27,6 +28,8 @@ export default function ListComponent() {
 
     const [fetching, setFetching] = useState(false)
 
+    const navigate = useNavigate()    
+
     useEffect(() => {
         setFetching(true)
 
@@ -39,6 +42,13 @@ export default function ListComponent() {
   return (
     <div>
         {fetching ? <FetchingModal /> : <></>}
+
+        <Button
+            style={{backgroundColor:'#6667AB', border:'white', color:'white', marginLeft:'3%'}}
+            onClick={() => navigate('../add')}
+        >
+            상품 등록
+        </Button>
 
         <Row lg={3} style={{margin : "2%"}}>
             {serverData.dtoList.map(product =>

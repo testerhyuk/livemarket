@@ -5,6 +5,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import FetchingModal from '../common/FetchingModal';
 import ResultModal from '../common/ResultModal';
 import './css/AddComponent.css'
+import useCustomLogin from '../../hooks/useCustomLogin';
 
 const initState = {
     pname: '',
@@ -26,6 +27,12 @@ export default function AddComponent(props) {
     const {moveToList} = useCustomMove()
     
     const category = ['음식', '의류', '가전제품', '신발', '기타 상품']
+
+    const {isLogin, moveToLoginReturn} = useCustomLogin()
+
+    if(!isLogin) {
+        return moveToLoginReturn()
+    }
 
     const handleChangeProduct = (e) => {
         product[e.target.name] = e.target.value

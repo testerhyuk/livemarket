@@ -44,7 +44,7 @@ export default function ReadComponent({pno}) {
 
         <div style={{marginLeft:'0%'}}>
             <div style={{display:'flex', justifyContent:'center', marginBottom:'3%'}}>
-                <div style={{marginRight:'25%'}}>아이디(지역)</div>
+                <div style={{marginRight:'25%'}}>아이디</div>
                 <div>랭크</div>
             </div>
 

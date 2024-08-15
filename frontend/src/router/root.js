@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import productsRouter from './productsRouter'
 import FetchingModal from '../components/common/FetchingModal'
+import memberRouter from './memberRouter'
 
 const Main = lazy(() => import('../pages/home/MainPage'))
 
@@ -18,7 +19,12 @@ const root = createBrowserRouter([
         path: 'products',
         element: <Suspense fallback={<FetchingModal />}><ProductsIndex /></Suspense>,
         children: productsRouter()
-    }
+    },
+    // member 라우터
+    {
+        path: 'member',
+        children: memberRouter()
+    },
 ])
 
 export default root;

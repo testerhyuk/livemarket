@@ -43,3 +43,10 @@ export const deleteOne = async (pno) => {
 	
 	return res.data
 }
+
+// 오늘의 새상품
+export const todayProduct = async () => {
+	const res = await axios.get(`${host}/today_product`)
+
+	return res.data
+}

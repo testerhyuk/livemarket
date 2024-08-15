@@ -30,15 +30,21 @@
     border: white;
 }
 
-.dropdown_toggle:hover {
+.dropdown_member_toggle {
+    background-color: white;
+    border: white;
+    padding: 0;
+}
+
+.dropdown_toggle:hover, .dropdown_member_toggle:hover {
     background-color: white !important;
 }
 
-.dropdown_toggle:focus {
+.dropdown_toggle:focus, .dropdown_member_toggle:focus {
     background-color: white !important;
 }
 
-.dropdown_toggle:active {
+.dropdown_toggle:active, .dropdown_member_toggle:active {
     background-color: white !important;
 }
 
