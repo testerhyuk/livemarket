@@ -23,7 +23,7 @@ export const getList = async (pageParams) => {
 
 // 상품 상세 페이지
 export const getOne = async (pno) => {
-    const res = await axios.get(`${host}/${pno}`)
+    const res = await axios.get(`${host}/read/${pno}`)
 
     return res.data
 }
@@ -32,7 +32,7 @@ export const getOne = async (pno) => {
 export const putOne = async (pno, product) => {
     const header = {headers: {'Content-Type' : 'multipart/form-data'}}
 	
-	const res = await axios.put(`${host}/${pno}`, product, header)
+	const res = await axios.put(`${host}/modify/${pno}`, product, header)
 	
 	return res.data
 }

@@ -9,7 +9,7 @@ export default function ListPage() {
   return (
     <div>
         <Button 
-            style={{backgroundColor:'#6667AB', border:'white', color:'white'}}
+            style={{backgroundColor:'#6667AB', border:'white', color:'white', marginLeft:'3%'}}
             onClick={() => navigate('../add')}
         >
             상품 등록

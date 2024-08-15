@@ -48,16 +48,17 @@ export default function ReadComponent({pno}) {
                 <div>랭크</div>
             </div>
 
-            <div style={{textAlign:'center', marginRight:'35%'}}>
+            <div>
                 <div
                     style={{
                         fontWeight:'bold',
-                        fontSize:'25px'
+                        fontSize:'25px',
+                        marginLeft:'30%'
                     }}
                 >
                     {product.pname}
                 </div>
-                <div style={{display:'flex', justifyContent:'center'}}>
+                <div style={{display:'flex', marginLeft:'30%'}}>
                     <Badge 
                         style={{
                             width:'60px', 
@@ -79,22 +80,24 @@ export default function ReadComponent({pno}) {
 
                 <div style={{
                     borderBottom:'1px solid lightgrey',
-                    margin:'5% 43%',
-                    width:'300px'
+                    margin:'5% 0',
+                    marginLeft:'30%',
+                    width:'350px'
                 }}></div>
                 
-                <div style={{marginLeft:'7%', marginBottom:'5%'}}>
+                <div style={{marginBottom:'5%'}}>
                     <div
                         style={{
                             fontWeight:'bold',
                             fontSize:'20px',
-                            marginBottom:'5%'
+                            marginBottom:'5%',
+                            marginLeft:'30%'
                         }}
                     >
                         판매가 : {product.price}
                     </div>
                     <div
-                        style={{marginRight:'15%', fontSize:'13px'}}
+                        style={{fontSize:'14px', marginLeft:'30%'}}
                     >
                         {product.pdesc}
                     </div>
