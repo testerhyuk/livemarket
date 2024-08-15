@@ -57,14 +57,14 @@ public class ProductController {
     }
 
     // 상품 조회
-    @GetMapping("/{pno}")
+    @GetMapping("/read/{pno}")
     public ProductDTO read(@PathVariable("pno") Long pno) {
         return productService.get(pno);
     }
 
     // 상품 수정
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @PutMapping("/{pno}")
+    @PutMapping("/modify/{pno}")
     public Map<String, String> modify(@PathVariable Long pno, ProductDTO productDTO) {
         productDTO.setPno(pno);
 

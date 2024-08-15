@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +22,10 @@ import java.util.Map;
 public class JWTCheckFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String[] excludedPath = {"/api/member/", "/api/products/list", "/api/products/view/", "/api/products/read/"};
         String path = request.getRequestURI();
 
-        return path.startsWith("/api/member/");
+        return Arrays.stream(excludedPath).anyMatch(path::startsWith);
     }
 
     @Override
