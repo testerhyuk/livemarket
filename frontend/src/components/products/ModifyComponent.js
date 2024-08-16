@@ -5,6 +5,7 @@ import { Button, CloseButton, Col, Form, Image, Row } from 'react-bootstrap'
 import FetchingModal from '../common/FetchingModal'
 import ResultModal from '../common/ResultModal'
 import './css/ModifyComponent.css'
+import useCustomLogin from '../../hooks/useCustomLogin'
 
 const initState = {
     pno: 0,
@@ -26,7 +27,9 @@ export default function ModifyComponent({pno}) {
 
     const uploadRef = useRef()
 
-    const {moveToRead, moveToList} = useCustomMove()
+    const {moveToRead, moveToList, refresh} = useCustomMove()
+
+    const {exceptionHandle} = useCustomLogin()
 
     const category = ['음식', '의류', '가전제품', '신발', '기타 상품']
 
@@ -37,7 +40,9 @@ export default function ModifyComponent({pno}) {
             setFetching(false)
             setProduct(data)
         })
-    }, [pno])
+        .catch(err => exceptionHandle(err))
+
+    }, [pno, refresh])
 
     const handleChangeProduct = (e) => {
 		product[e.target.name] = e.target.value

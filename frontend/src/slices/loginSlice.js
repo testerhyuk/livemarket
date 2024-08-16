@@ -1,8 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { loginPost } from "../api/MemberApi"
+import { getCookie, removeCookie, setCookie } from "../util/cookieUtil"
 
 const initState = {
     email: ''
+}
+
+// 자동으로 쿠키 불러오는 설정
+const loadMemeberCookie = () => {
+    const memberInfo = getCookie("member")
+
+    if(memberInfo && memberInfo.nickname) {
+        memberInfo.nickname = decodeURIComponent(memberInfo.nickname)
+    }
+
+    return memberInfo
 }
 
 export const loginPostAsync = createAsyncThunk('loginPostAsync', (param) => {
@@ -11,18 +23,25 @@ export const loginPostAsync = createAsyncThunk('loginPostAsync', (param) => {
 
 const loginSlice = createSlice({
     name: 'loginSlice',
-    initialState: initState,
+    initialState: loadMemeberCookie() || initState,
     reducers : {
         login : (state, action) => {
             return {email: action.payload.email}
         },
         logout : () => {
+            removeCookie('member')
             return {...initState}
         }
     },
     extraReducers: (builder) => {
         builder.addCase(loginPostAsync.fulfilled, (state, action) => {
-            return action.payload
+            const payload = action.payload
+
+            if(!payload.error) {
+                setCookie("member", JSON.stringify(payload), 1)
+            }
+
+            return payload
         })
     }
 })

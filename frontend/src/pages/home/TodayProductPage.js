@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import TodayProductComponent from '../../components/products/TodayProductComponent'
 import { useDispatch, useSelector } from 'react-redux'
 import { todayProduct } from '../../api/ProductsApi'
@@ -17,7 +17,8 @@ export default function TodayProductPage() {
 
   return (
     <div>
-        <h2>새로운 상품</h2>
+        <h4 style={{marginLeft:'20px', marginTop:'20px'}}>오늘의 상품</h4>
+        <div style={{borderBottom:'1px solid lightgray', width:'150px', marginLeft:'20px'}}></div>
         <div>
             <TodayProductComponent product={today}/>
         </div>

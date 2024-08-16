@@ -52,7 +52,7 @@ const useCustomMove = () => {
     // 상품 상세 페이지 이동
     const moveToRead = (num) => {
         navigate({
-            pathname: `../read/${num}`,
+            pathname: `products/read/${num}`,
             search: queryDefault
         })
     }
