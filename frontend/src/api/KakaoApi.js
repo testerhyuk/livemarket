@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_SERVER_HOST } from "./MemberApi"
 
-const rest_api_key = 'f24b542d9c7ff36e6233c7ca623ec047'
+const rest_api_key = 'rest_api_key'
 
 const redirect_uri = 'http://localhost:3000/member/kakao'
 
