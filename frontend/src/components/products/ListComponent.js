@@ -57,7 +57,7 @@ export default function ListComponent() {
                         <Card.Img variant="top" src={`${host}/api/products/view/Thumb_${product.uploadedFileNames[0]}`} />
                         <Card.Body>
                         <Card.Title>{product.pname}</Card.Title>
-                        <Card.Text>{product.price}원</Card.Text>
+                        <Card.Text>{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>

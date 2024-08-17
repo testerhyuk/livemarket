@@ -37,7 +37,7 @@ export default function TodayProductComponent({product}) {
 
                       <div className='flex flex-col items-center justify-center gap-1 p-4'>
                         <p className='text-xl font-semibold'>{prd.pname}</p>
-                        <p className='text-center'>{prd.price}원</p>
+                        <p className='text-center'>{prd.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
                       </div>
                     </div>
                   )

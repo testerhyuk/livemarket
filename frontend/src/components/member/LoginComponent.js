@@ -4,6 +4,8 @@ import logo from '../../logo.png'
 import './css/LoginComponent.css'
 import useCustomLogin from '../../hooks/useCustomLogin'
 import ResultModal from '../common/ResultModal'
+import KakaoLoginComponent from './KakaoLoginComponent'
+import { useNavigate } from 'react-router-dom'
 
 const initState = {
     email: '',
@@ -16,6 +18,8 @@ export default function LoginComponent() {
     const {doLogin, moveToPath} = useCustomLogin()
 
     const [result, setResult] = useState(false)
+
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         loginParam[e.target.name] = e.target.value
@@ -70,14 +74,16 @@ export default function LoginComponent() {
         <Button className="w-100" style={{backgroundColor:'#6667AB', border:'1px solid #6667AB'}} onClick={handleClickLogin}>
             로그인
         </Button>
+
+        <KakaoLoginComponent />
         
         <div className="d-grid justify-content-end">
           <Button
-            className="text-muted px-0"
+            className="text-muted"
             variant="link"
-            
+            onClick={() => navigate("../register")}
           >
-            비밀번호를 잊으셨나요?
+            회원가입
           </Button>
         </div>
       </Form>

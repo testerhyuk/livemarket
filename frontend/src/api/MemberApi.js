@@ -15,3 +15,24 @@ export const loginPost = async (loginParam) => {
 
     return res.data
 }
+
+// 회원 등록
+export const registerMember = async(member) => {
+    const header = {headers: {"Content-Type": "application/json"}}
+
+    const form = new FormData()
+    form.append('email', member.email)
+    form.append('nickname', member.nickname)
+    form.append('pw', member.pw)
+
+    const res = await axios.post(`${host}/register`, form, header)
+
+    return res.data
+}
+
+// 회원 수정
+export const modifyMember = async (member) => {
+    const res = await axios.put(`${host}/modify`, member)
+
+    return res.data
+}
