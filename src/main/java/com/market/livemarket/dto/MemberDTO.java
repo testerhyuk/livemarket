@@ -1,5 +1,7 @@
 package com.market.livemarket.dto;
 
+import lombok.Builder;
+import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -9,13 +11,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MemberDTO extends User {
-    private String email;
-    private String pw;
-    private String nickname;
-    private boolean social;
 
-    private List<String> roleNames = new ArrayList<>();
+@Getter
+public class MemberDTO extends User {
+    private final String email;
+    private final String pw;
+    private final String nickname;
+    private final boolean social;
+    private final List<String> roleNames;
 
     public MemberDTO(String email, String pw, String nickname, boolean social, List<String> roleNames) {
         super(

@@ -26,6 +26,18 @@ public class Member {
     @Builder.Default
     private List<MemberRole> memberRoleList = new ArrayList<>();
 
+    public void changePw(String pw) {
+        this.pw = pw;
+    }
+
+    public void changeNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void changeSocial(boolean social) {
+        this.social = social;
+    }
+
     public void addRole(MemberRole memberRole) {
         memberRoleList.add(memberRole);
     }
