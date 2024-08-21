@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_SERVER_HOST } from "./MemberApi"
 
-const rest_api_key = 'f24b542d9c7ff36e6233c7ca623ec047'
+const rest_api_key = process.env.REACT_APP_KAKAO_API_KEY
 
 const redirect_uri = 'http://localhost:3000/member/kakao'
 
@@ -11,6 +11,7 @@ const access_token_url = 'https://kauth.kakao.com/oauth/token'
 
 // 카카오 로그인 창
 export const getkakaoLoginLink = () => {
+    console.log('rest : ', rest_api_key)
     const kakaoURL = `${auth_code_path}?client_id=${rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`
 
     return kakaoURL
