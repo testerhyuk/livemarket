@@ -44,6 +44,22 @@ public class Member {
         this.social = social;
     }
 
+    public void changeEmail(String email) {
+        this.email = email;
+    }
+
+    public void changeZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public void changeStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
+
+    public void changeDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
+    }
+
     public void addRole(MemberRole memberRole) {
         memberRoleList.add(memberRole);
     }

@@ -7,4 +7,7 @@ public class MemberModifyDTO {
     private String email;
     private String pw;
     private String nickname;
+    private String zipcode;
+    private String streetAddress;
+    private String detialAddress;
 }

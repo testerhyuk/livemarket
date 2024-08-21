@@ -145,6 +145,9 @@ public class MemberService {
         member.changeNickname(memberModifyDTO.getNickname());
         member.changeSocial(false);
         member.changePw(passwordEncoder.encode(memberModifyDTO.getPw()));
+        member.changeZipcode(memberModifyDTO.getZipcode());
+        member.changeStreetAddress(memberModifyDTO.getStreetAddress());
+        member.changeDetailAddress(memberModifyDTO.getDetialAddress());
 
         memberRepository.save(member);
     }
