@@ -20,6 +20,12 @@ public class Member {
 
     private String nickname;
 
+    private String zipcode;
+
+    private String streetAddress;
+
+    private String detailAddress;
+
     private boolean social;
 
     @ElementCollection(fetch = FetchType.LAZY)

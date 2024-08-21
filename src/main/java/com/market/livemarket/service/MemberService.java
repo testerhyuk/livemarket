@@ -8,6 +8,7 @@ import com.market.livemarket.entity.MemberRole;
 import com.market.livemarket.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -31,6 +32,24 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    public boolean checkEmail(String email) {
+        boolean validateEmail = EmailValidator.getInstance().isValid(email);
+
+        if(!validateEmail) {
+            return true;
+        }
+
+        return memberRepository.existsByEmail(email);
+    }
+
+    public boolean checkNickname(String nickname) {
+        if(nickname.isEmpty()) {
+            return true;
+        }
+
+        return memberRepository.existsByNickname(nickname);
+    }
 
     public MemberDTO getKakaoMember(String accessToken) {
         String nickname = getNicknameFromKakaoAccessToken(accessToken);
@@ -91,19 +110,31 @@ public class MemberService {
         return nickname;
     }
 
-    public void registerMember(MemberRegisterDTO memberDTO) {
-        log.info("memberDTO : " + memberDTO);
+    public boolean registerMember(MemberRegisterDTO memberDTO) {
+        boolean isEmail = memberRepository.existsByEmail(memberDTO.getEmail());
+        boolean isNickname = memberRepository.existsByNickname(memberDTO.getNickname());
+
+        if(isEmail) {
+            return true;
+        } else if(isNickname) {
+            return true;
+        }
 
         Member member = Member.builder()
                 .email(memberDTO.getEmail())
                 .pw(passwordEncoder.encode(memberDTO.getPw()))
                 .nickname(memberDTO.getNickname())
-                .social(false)
+                .social(memberDTO.isSocial())
+                .zipcode(memberDTO.getZipcode())
+                .streetAddress(memberDTO.getStreetAddress())
+                .detailAddress(memberDTO.getDetailAddress())
                 .build();
 
         member.addRole(MemberRole.USER);
 
         memberRepository.save(member);
+
+        return false;
     }
 
     public void modifyMember(MemberModifyDTO memberModifyDTO) {
