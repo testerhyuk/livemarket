@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 @Log4j2
@@ -24,6 +25,13 @@ public class CustomControllerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<?> handleMemberRegisterException(MethodArgumentNotValidException e) {
         String msg = e.getBindingResult().getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().get(0);
+
+        return ResponseEntity.badRequest().body(Map.of("ERROR", msg));
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    protected ResponseEntity<?> handleMemberModifyException(NoSuchElementException e) {
+        String msg = e.getMessage();
 
         return ResponseEntity.badRequest().body(Map.of("ERROR", msg));
     }

@@ -44,10 +44,6 @@ public class Member {
         this.social = social;
     }
 
-    public void changeEmail(String email) {
-        this.email = email;
-    }
-
     public void changeZipcode(String zipcode) {
         this.zipcode = zipcode;
     }

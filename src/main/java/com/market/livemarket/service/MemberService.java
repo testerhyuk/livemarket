@@ -139,7 +139,6 @@ public class MemberService {
 
     public void modifyMember(MemberModifyDTO memberModifyDTO) {
         Optional<Member> result = memberRepository.findById(memberModifyDTO.getEmail());
-
         Member member = result.orElseThrow();
 
         member.changeNickname(memberModifyDTO.getNickname());
@@ -147,7 +146,7 @@ public class MemberService {
         member.changePw(passwordEncoder.encode(memberModifyDTO.getPw()));
         member.changeZipcode(memberModifyDTO.getZipcode());
         member.changeStreetAddress(memberModifyDTO.getStreetAddress());
-        member.changeDetailAddress(memberModifyDTO.getDetialAddress());
+        member.changeDetailAddress(memberModifyDTO.getDetailAddress());
 
         memberRepository.save(member);
     }

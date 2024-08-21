@@ -4,6 +4,7 @@ import com.market.livemarket.dto.MemberDTO;
 import com.market.livemarket.dto.MemberModifyDTO;
 import com.market.livemarket.service.MemberService;
 import com.market.livemarket.util.JWTUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,8 @@ public class SocialController {
     }
 
     @PutMapping("api/member/modify")
-    public Map<String, String> modify(@RequestBody MemberModifyDTO memberModifyDTO) {
+    public Map<String, String> modify(@Valid MemberModifyDTO memberModifyDTO) {
+        log.info("dto : "+memberModifyDTO);
         memberService.modifyMember(memberModifyDTO);
 
         return Map.of("result", "modified");
