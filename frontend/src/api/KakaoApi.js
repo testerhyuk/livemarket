@@ -11,7 +11,6 @@ const access_token_url = 'https://kauth.kakao.com/oauth/token'
 
 // 카카오 로그인 창
 export const getkakaoLoginLink = () => {
-    console.log('rest : ', rest_api_key)
     const kakaoURL = `${auth_code_path}?client_id=${rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`
 
     return kakaoURL

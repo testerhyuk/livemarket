@@ -33,7 +33,15 @@ export const registerMember = async(member) => {
 
 // 회원 수정
 export const modifyMember = async (member) => {
-    const res = await axios.put(`${host}/modify`, member)
+    const form = new FormData()
+    form.append('email', member.email)
+    form.append('nickname', member.nickname)
+    form.append('pw', member.pw)
+    form.append('zipcode', member.zipcode)
+    form.append('streetAddress', member.streetAddress)
+    form.append('detailAddress', member.detailAddress)
+
+    const res = await axios.put(`${host}/modify`, form)
 
     return res.data
 }
@@ -64,6 +72,8 @@ export const sendEmail = async (email) => {
     form.append('email', email)
 
     const res = await axios.post(`${host}/sendEmail`, form)
+
+    return res.data
 }
 
 // 이메일 인증
@@ -72,4 +82,6 @@ export const validateNumberCheck = async (validateNumber) => {
     form.append('validateNumber', validateNumber)
 
     const res = await axios.post(`${host}/emailValidateCheck`, form)
+
+    return res.data
 }
