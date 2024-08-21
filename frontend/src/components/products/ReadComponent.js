@@ -94,7 +94,7 @@ export default function ReadComponent({pno}) {
                             marginLeft:'30%'
                         }}
                     >
-                        판매가 : {product.price}
+                        판매가 : {product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
                     </div>
                     <div
                         style={{fontSize:'14px', marginLeft:'30%'}}

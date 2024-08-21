@@ -4,12 +4,12 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './css/TodayProductComponent.css'
-import useCustomMove from '../../hooks/useCustomMove';
+import { useNavigate } from 'react-router-dom';
 
 export default function TodayProductComponent({product}) {
   const host = API_SERVER_HOST
 
-  const {moveToRead} = useCustomMove()
+  const navigate = useNavigate()
 
   const settings = {
     dots: true,
@@ -30,7 +30,7 @@ export default function TodayProductComponent({product}) {
               <Slider {...settings}>
                 {product.map(prd => {
                   return (
-                    <div key={prd.pno} className='h-[300px] cursor-pointer' onClick={() => moveToRead(prd.pno)}>
+                    <div key={prd.pno} className='h-[300px] cursor-pointer' onClick={() => navigate(`products/read/${prd.pno}`)}>
                       <div className='h-46 flex justify-center items-center '>
                         <img src={`${host}/api/products/view/Thumb_${prd.uploadedFileNames[0]}`} alt="product_image" className='h-44 w-33 rounded' />
                       </div>

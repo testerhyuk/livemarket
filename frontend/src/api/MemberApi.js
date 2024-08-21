@@ -18,14 +18,15 @@ export const loginPost = async (loginParam) => {
 
 // 회원 등록
 export const registerMember = async(member) => {
-    const header = {headers: {"Content-Type": "application/json"}}
-
     const form = new FormData()
     form.append('email', member.email)
     form.append('nickname', member.nickname)
     form.append('pw', member.pw)
+    form.append('zipcode', member.zipcode)
+    form.append('streetAddress', member.streetAddress)
+    form.append('detailAddress', member.detailAddress)
 
-    const res = await axios.post(`${host}/register`, form, header)
+    const res = await axios.post(`${host}/register`, form)
 
     return res.data
 }
@@ -35,4 +36,40 @@ export const modifyMember = async (member) => {
     const res = await axios.put(`${host}/modify`, member)
 
     return res.data
+}
+
+// 이메일 중복 검사
+export const checkEmail = async (email) => {
+    const form = new FormData()
+    form.append('email', email)
+
+    const res = await axios.post(`${host}/check_email`, form)
+
+    return res.data
+}
+
+// 닉네임 중복 검사
+export const checkNickname = async (nickname) => {
+    const form = new FormData()
+    form.append('nickname', nickname)
+
+    const res = await axios.post(`${host}/check_nickname`, form)
+
+    return res.data
+}
+
+// 이메일 전송
+export const sendEmail = async (email) => {
+    const form = new FormData()
+    form.append('email', email)
+
+    const res = await axios.post(`${host}/sendEmail`, form)
+}
+
+// 이메일 인증
+export const validateNumberCheck = async (validateNumber) => {
+    const form = new FormData()
+    form.append('validateNumber', validateNumber)
+
+    const res = await axios.post(`${host}/emailValidateCheck`, form)
 }
