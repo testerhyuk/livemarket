@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 const initState = {
     email: '',
-    pw: ''
+    pw: '',
 }
 
 export default function LoginComponent() {

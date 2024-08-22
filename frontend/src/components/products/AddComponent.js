@@ -6,17 +6,21 @@ import FetchingModal from '../common/FetchingModal';
 import ResultModal from '../common/ResultModal';
 import './css/AddComponent.css'
 import useCustomLogin from '../../hooks/useCustomLogin';
+import { useSelector } from 'react-redux';
 
 const initState = {
     pname: '',
     pdesc: '',
     price: 0,
     files: [],
-    category: ''
+    category: '',
+    user: ''
 }
 
 export default function AddComponent(props) {
     const [product, setProduct] = useState(initState);
+
+    const loginState = useSelector(state => state.loginSlice)
 
     const uploadRef = useRef();
 
@@ -53,6 +57,7 @@ export default function AddComponent(props) {
 		formData.append("pdesc", product.pdesc)
 		formData.append("price", product.price)
         formData.append("category", product.category)
+        formData.append("user", loginState.email)
 
         setFetching(true)
 

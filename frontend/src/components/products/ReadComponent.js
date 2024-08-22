@@ -3,13 +3,17 @@ import useCustomMove from '../../hooks/useCustomMove'
 import { API_SERVER_HOST, getOne } from '../../api/ProductsApi'
 import FetchingModal from '../common/FetchingModal'
 import { Badge, Button, Image } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 
 const initState = {
     pno: 0,
     pname: '',
     pdesc: '',
     price: 0,
-    uploadedFileNames: []
+    uploadedFileNames: [],
+    user: '',
+    nickname: '',
+    city: ''
 }
 
 const productCategory = {
@@ -29,6 +33,8 @@ export default function ReadComponent({pno}) {
 
     const {moveToModify, moveToList, page, size} = useCustomMove()
 
+    const loginState = useSelector(state => state.loginSlice)
+
     useEffect(() => {
         setFetching(true)
 
@@ -44,7 +50,9 @@ export default function ReadComponent({pno}) {
 
         <div style={{marginLeft:'0%'}}>
             <div style={{display:'flex', justifyContent:'center', marginBottom:'3%'}}>
-                <div style={{marginRight:'25%'}}>아이디</div>
+                <div style={{marginRight:'25%', fontWeight:'bold'}}>
+                    {`${product.nickname}(${product.city.substring(0, 2)})`}
+                </div>
                 <div>랭크</div>
             </div>
 
@@ -118,12 +126,16 @@ export default function ReadComponent({pno}) {
         </div>
         
         <div style={{textAlign:'right', marginRight:'5%', marginBottom:'5%'}}>
-            <Button 
+            {loginState.email === product.user ?
+                <Button 
                 style={{backgroundColor:'#6667AB', border:'white', color:'white', marginRight:'1%'}}
                 onClick={() => moveToModify(pno)}
-            >
-                상품 수정
-            </Button>
+                >
+                    상품 수정
+                </Button>
+                :
+                <></>
+            }
 
             <Button 
                 style={{backgroundColor:'#6667AB', border:'white', color:'white'}}

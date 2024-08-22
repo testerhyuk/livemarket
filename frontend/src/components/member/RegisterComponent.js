@@ -12,7 +12,7 @@ const initState = {
     nickname: '',
     zipcode: '',
     streetAddress: '',
-    detailAddress: ''
+    detailAddress: '',
 }
 
 export default function RegisterComponent() {

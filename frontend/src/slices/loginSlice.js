@@ -3,7 +3,7 @@ import { loginPost } from "../api/MemberApi"
 import { getCookie, removeCookie, setCookie } from "../util/cookieUtil"
 
 const initState = {
-    email: ''
+    email: '',
 }
 
 // 자동으로 쿠키 불러오는 설정

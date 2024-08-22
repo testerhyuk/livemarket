@@ -16,6 +16,24 @@ export const loginPost = async (loginParam) => {
     return res.data
 }
 
+// 회원 조회
+export const getMemberInfo = async (email) => {
+    const form = new FormData()
+
+    form.append('email', email)
+
+    const res = await axios.post(`${host}/getMember`, form)
+
+    return res.data
+}
+
+// 프로필 이미지
+export const getProfileImage = async (fileName) => {
+    const res = await axios.get(`${host}/view/${fileName}`)
+
+    return res.data
+}
+
 // 회원 등록
 export const registerMember = async(member) => {
     const form = new FormData()

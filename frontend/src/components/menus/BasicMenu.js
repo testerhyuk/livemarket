@@ -60,7 +60,7 @@ export default function BasicMenu() {
                         <Dropdown.Menu className='dropdown_menu'>
                             {loginState.email ?
                                 <>
-                                    <Dropdown.Item className='memberInfo' as={Link} to={'/'}>회원정보</Dropdown.Item>
+                                    <Dropdown.Item className='memberInfo' as={Link} to={'/member/info'}>회원정보</Dropdown.Item>
                                     <Dropdown.Item className='wish' as={Link} to={'/'}>찜 리스트</Dropdown.Item>
                                     <Dropdown.Divider />
                                     <Dropdown.Item className='logout' as={Link} to={'/'} onClick={handleClickLogout}>로그아웃</Dropdown.Item>

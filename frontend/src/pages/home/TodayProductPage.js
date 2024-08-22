@@ -17,8 +17,8 @@ export default function TodayProductPage() {
 
   return (
     <div>
-        <h4 style={{marginLeft:'20px', marginTop:'20px'}}>오늘의 상품</h4>
-        <div style={{borderBottom:'1px solid lightgray', width:'150px', marginLeft:'20px'}}></div>
+        <h4 style={{marginLeft:'42%', marginTop:'20px'}}>오늘의 상품</h4>
+        <div style={{borderBottom:'1px solid lightgray', width:'160px', marginLeft:'40%'}}></div>
         <div>
             <TodayProductComponent product={today}/>
         </div>

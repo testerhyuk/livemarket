@@ -5,6 +5,7 @@ const Login = lazy(() => import('../pages/member/LoginPage'))
 const KakaoRedirect = lazy(() => import('../pages/member/KakaoRedirectPage'))
 const MemberModify = lazy(() => import('../pages/member/MemberModifyPage'))
 const MemberRegister = lazy(() => import('../pages/member/RegisterPage'))
+const MemberInfo = lazy(() => import('../pages/member/MemberInfoPage'))
 
 const memberRouter = () => {
     return [
@@ -23,6 +24,10 @@ const memberRouter = () => {
         {
             path: 'register',
             element: <Suspense fallback={<FetchingModal />}><MemberRegister /></Suspense>
+        },
+        {
+            path: 'info',
+            element: <Suspense fallback={<FetchingModal />}><MemberInfo /></Suspense>
         },
     ]
 }

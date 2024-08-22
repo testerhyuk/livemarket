@@ -4,6 +4,7 @@ import { getAccessToken, getMemberWithAccessToken } from '../../api/KakaoApi'
 import { useDispatch } from 'react-redux'
 import useCustomLogin from '../../hooks/useCustomLogin'
 import { login } from '../../slices/loginSlice'
+import FetchingModal from '../../components/common/FetchingModal'
 
 export default function KakaoRedirectPage() {
     const [searchParams] = useSearchParams()
@@ -32,7 +33,7 @@ export default function KakaoRedirectPage() {
 
   return (
     <div>
-        <div>Kakao Login Redirect</div>
+        <FetchingModal />
     </div>
   )
 }
