@@ -19,8 +19,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("-----loadUserByUsername-----");
-
         Member member = memberRepository.getWithRoles(username);
 
         if(member == null) {

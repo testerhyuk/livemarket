@@ -3,7 +3,6 @@ package com.market.livemarket.controller;
 import com.market.livemarket.dto.PageRequestDTO;
 import com.market.livemarket.dto.PageResponseDTO;
 import com.market.livemarket.dto.ProductDTO;
-import com.market.livemarket.entity.Product;
 import com.market.livemarket.service.ProductService;
 import com.market.livemarket.util.CustomFileUtil;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @Log4j2

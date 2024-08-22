@@ -3,6 +3,7 @@ package com.market.livemarket.service;
 import com.market.livemarket.dto.PageRequestDTO;
 import com.market.livemarket.dto.PageResponseDTO;
 import com.market.livemarket.dto.ProductDTO;
+import com.market.livemarket.entity.Member;
 import com.market.livemarket.entity.Product;
 import com.market.livemarket.entity.ProductCategory;
 import com.market.livemarket.entity.ProductImage;
@@ -37,7 +38,7 @@ public class ProductService {
         }
 
         result.forEach(prd -> {
-            ProductDTO productDTO = entityToDTO(prd);
+            ProductDTO productDTO = entityToDTOWithoutMember(prd);
             resDTO.add(productDTO);
         });
 
@@ -142,6 +143,7 @@ public class ProductService {
 
     // dto -> entity
     private Product dtoToEntity(ProductDTO productDTO) {
+        Member user = Member.builder().email(productDTO.getUser()).build();
 
         Product product = Product.builder()
                 .pno(productDTO.getPno())
@@ -150,6 +152,7 @@ public class ProductService {
                 .price(productDTO.getPrice())
                 .category(ProductCategory.StringToProductCategory(productDTO.getCategory()))
                 .date(productDTO.getDate())
+                .user(user)
                 .build();
 
         List<String> uploadFileNames = productDTO.getUploadedFileNames();
@@ -165,6 +168,33 @@ public class ProductService {
 
     // entity -> dto
     private ProductDTO entityToDTO(Product product) {
+        ProductDTO productDTO = ProductDTO.builder()
+                .pno(product.getPno())
+                .pname(product.getPname())
+                .pdesc(product.getPdesc())
+                .price(product.getPrice())
+                .delFlag(product.isDelFlag())
+                .category(product.getCategory().getCategoryType())
+                .date(product.getDate())
+                .user(product.getUser().getEmail())
+                .nickname(product.getUser().getNickname())
+                .city(product.getUser().getStreetAddress())
+                .build();
+
+        List<ProductImage> imageList = product.getImageList();
+
+        if(imageList == null || imageList.isEmpty()) {
+            return productDTO;
+        }
+
+        List<String> fileNameList = imageList.stream().map(ProductImage::getFileName).toList();
+
+        productDTO.setUploadedFileNames(fileNameList);
+
+        return productDTO;
+    }
+
+    private ProductDTO entityToDTOWithoutMember(Product product) {
         ProductDTO productDTO = ProductDTO.builder()
                 .pno(product.getPno())
                 .pname(product.getPname())

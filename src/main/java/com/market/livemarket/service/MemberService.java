@@ -1,8 +1,6 @@
 package com.market.livemarket.service;
 
-import com.market.livemarket.dto.MemberDTO;
-import com.market.livemarket.dto.MemberModifyDTO;
-import com.market.livemarket.dto.MemberRegisterDTO;
+import com.market.livemarket.dto.*;
 import com.market.livemarket.entity.Member;
 import com.market.livemarket.entity.MemberRole;
 import com.market.livemarket.repository.MemberRepository;
@@ -33,6 +31,28 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
 
+    public MemberInfoDTO getMembersInfo(String email) {
+        Optional<Member> result = memberRepository.findById(email);
+
+        Member member = result.orElseThrow();
+
+        return MemberInfoDTO.builder()
+                .email(member.getEmail())
+                .nickname(member.getNickname())
+                .streetAddress(member.getStreetAddress())
+                .detailAddress(member.getDetailAddress())
+                .file(member.getProfileImage())
+                .build();
+    }
+
+    public void registerProfile(MemberProfileDTO memberProfileDTO) {
+        Optional<Member> result = memberRepository.findById(memberProfileDTO.getEmail());
+
+        Member member = result.orElseThrow();
+
+        member.addProfileImage(memberProfileDTO.getUploadedFileNames());
+    }
+
     public boolean checkEmail(String email) {
         boolean validateEmail = EmailValidator.getInstance().isValid(email);
 
@@ -57,7 +77,6 @@ public class MemberService {
         Optional<Member> result = memberRepository.findById(nickname);
 
         if(result.isPresent()) {
-
             return entityToDTO(result.get());
         }
 
@@ -77,9 +96,12 @@ public class MemberService {
                 .nickname("Social Member")
                 .social(true)
                 .pw(passwordEncoder.encode(tempPassword))
+                .profileImage(null)
                 .build();
 
         member.addRole(MemberRole.USER);
+
+        log.info("member : " + member);
 
         return member;
     }

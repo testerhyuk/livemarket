@@ -40,6 +40,25 @@ public class CustomFileUtil {
         uploadPath = tempFolder.getAbsolutePath();
     }
 
+    // 프로필 이미지 업로드 메서드
+    public String saveProfile(MultipartFile file) throws RuntimeException {
+        if(file == null || file.isEmpty()) {
+            return null;
+        }
+
+        String uploadNames = "Profile_" + UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+
+        Path savePath = Paths.get(uploadPath, uploadNames);
+
+        try {
+            Files.copy(file.getInputStream(), savePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return uploadNames;
+    }
+
     // 이미지 파일 업로드 메서드
     public List<String> saveFiles(List<MultipartFile> files) throws RuntimeException {
         if(files == null || files.isEmpty()) {
@@ -78,6 +97,25 @@ public class CustomFileUtil {
         }
 
         return uploadNames;
+    }
+
+    // 업로드된 프로필 이미지 조회
+    public ResponseEntity<Resource> getProfileImage(String fileName) {
+        Resource resource = new FileSystemResource(uploadPath + File.separator + fileName);
+
+        if(!resource.isReadable()) {
+            resource = new FileSystemResource(uploadPath + File.separator + "default_profile.png");
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+
+        try {
+            headers.add("Content-Type", Files.probeContentType(resource.getFile().toPath()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return ResponseEntity.ok().headers(headers).body(resource);
     }
 
     // 업로드된 파일 조회

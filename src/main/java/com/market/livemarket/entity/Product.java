@@ -1,5 +1,6 @@
 package com.market.livemarket.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,7 +14,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "imageList")
+@ToString(exclude = {"imageList", "user"})
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 public class Product {
@@ -34,6 +35,10 @@ public class Product {
 
     @CreatedDate
     private LocalDate date;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "email")
+    private Member user;
 
     public void changeProductCategory(ProductCategory category) {
         this.category = category;

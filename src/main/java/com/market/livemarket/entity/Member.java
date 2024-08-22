@@ -1,5 +1,6 @@
 package com.market.livemarket.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = "memberRoleList")
+@ToString(exclude = {"memberRoleList", "products"})
 public class Member {
     @Id
     private String email;
@@ -28,9 +29,21 @@ public class Member {
 
     private boolean social;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @Builder.Default
+    List<Product> products = new ArrayList<>();
+
+    @Builder.Default
+    private String profileImage = null;
+
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private List<MemberRole> memberRoleList = new ArrayList<>();
+
+    public void addProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
 
     public void changePw(String pw) {
         this.pw = pw;
