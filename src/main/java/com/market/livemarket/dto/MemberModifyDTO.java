@@ -17,8 +17,12 @@ public class MemberModifyDTO {
 
     @NotBlank(message = "주소는 필수 입력값입니다")
     private String zipcode;
+
+    @NotBlank(message = "주소는 필수 입력값입니다")
     private String streetAddress;
 
     @NotBlank(message = "상세 주소는 필수 입력값입니다")
     private String detailAddress;
+
+    private String isChanged;
 }

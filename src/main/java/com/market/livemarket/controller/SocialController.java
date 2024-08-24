@@ -7,6 +7,8 @@ import com.market.livemarket.util.JWTUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,9 +38,13 @@ public class SocialController {
     }
 
     @PutMapping("api/member/modify")
-    public Map<String, String> modify(@Valid MemberModifyDTO memberModifyDTO) {
-        memberService.modifyMember(memberModifyDTO);
+    public ResponseEntity<?> modify(@Valid MemberModifyDTO memberModifyDTO) {
+        boolean res = memberService.modifyMember(memberModifyDTO);
 
-        return Map.of("result", "modified");
+        if(res) {
+            return ResponseEntity.badRequest().body(Map.of("ERROR", "이메일 또는 닉네임이 중복됩니다"));
+        }
+
+        return ResponseEntity.ok().body(HttpStatus.OK);
     }
 }

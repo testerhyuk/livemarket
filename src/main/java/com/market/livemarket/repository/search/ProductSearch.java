@@ -9,4 +9,6 @@ public interface ProductSearch {
     PageResponseDTO<ProductDTO> searchCategoryList(PageRequestDTO pageRequestDTO, ProductCategory category);
 
     PageResponseDTO<ProductDTO> searchKeyword(PageRequestDTO pageRequestDTO, String keyword);
+
+    PageResponseDTO<ProductDTO> myList(PageRequestDTO pageRequestDTO, String email);
 }

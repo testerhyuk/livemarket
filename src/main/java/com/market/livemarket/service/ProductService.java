@@ -92,6 +92,16 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    // 키워드 검색과 페이징
+    public PageResponseDTO<ProductDTO> getKeywordSearchList(PageRequestDTO pageRequestDTO, String keyword) {
+        return productRepository.searchKeyword(pageRequestDTO, keyword);
+    }
+
+    // 판매 상품 목록
+    public PageResponseDTO<ProductDTO> getMyList(PageRequestDTO pageRequestDTO, String email) {
+        return productRepository.myList(pageRequestDTO, email);
+    }
+
     // 데이터 전체 목록과 페이징
     public PageResponseDTO<ProductDTO> getList(PageRequestDTO pageRequestDTO) {
         Pageable pageable = PageRequest.of(
@@ -134,11 +144,6 @@ public class ProductService {
     public PageResponseDTO<ProductDTO> getCategorySearchList(PageRequestDTO pageRequestDTO, String category) {
         ProductCategory categoryType = ProductCategory.StringToProductCategory(category);
         return productRepository.searchCategoryList(pageRequestDTO, categoryType);
-    }
-
-    // 키워드 검색과 페이징
-    public PageResponseDTO<ProductDTO> getKeywordSearchList(PageRequestDTO pageRequestDTO, String keyword) {
-        return productRepository.searchKeyword(pageRequestDTO, keyword);
     }
 
     // dto -> entity

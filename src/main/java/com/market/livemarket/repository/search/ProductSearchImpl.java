@@ -61,6 +61,19 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
         return query;
     }
 
+    public JPQLQuery<Product> getJoinListWithQDomain(QProduct qProduct, QProductImage qProductImage, QMember qMember) {
+        qProduct = QProduct.product;
+        qProductImage = QProductImage.productImage;
+        qMember = QMember.member;
+
+        JPQLQuery<Product> query = from(qProduct);
+
+        query.leftJoin(qProduct.imageList, qProductImage);
+        query.leftJoin(qProduct.user, qMember);
+
+        return query;
+    }
+
     // 카테고리별 조회
     @Override
     public PageResponseDTO<ProductDTO> searchCategoryList(PageRequestDTO pageRequestDTO, ProductCategory category) {
@@ -101,6 +114,35 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
 
         // 대표 이미지와 검색어가 포함되어 있는 product 가져오기
         query.where(qproductImage.ord.eq(0), qproduct.pname.contains(keyword));
+
+        Objects.requireNonNull(getQuerydsl()).applyPagination(pageable, query);
+
+        List<Tuple> productList = query.select(qproduct, qproductImage).fetch();
+
+        List<ProductDTO> dtoList = tupleToProductDTO(productList);
+
+        long count = query.fetchCount();
+
+        return PageResponseDTO.<ProductDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .total(count)
+                .dtoList(dtoList)
+                .build();
+    }
+
+    @Override
+    public PageResponseDTO<ProductDTO> myList(PageRequestDTO pageRequestDTO, String email) {
+        log.info("querydsl email : " + email);
+        QProduct qproduct = QProduct.product;
+        QProductImage qproductImage = QProductImage.productImage;
+        QMember qMember = QMember.member;
+
+        JPQLQuery<Product> query = getJoinListWithQDomain(qproduct, qproductImage, qMember);
+
+        Pageable pageable = makePageRequest(pageRequestDTO);
+
+        // 대표 이미지와 검색어가 포함되어 있는 product 가져오기
+        query.where(qproductImage.ord.eq(0), qMember.email.eq(email));
 
         Objects.requireNonNull(getQuerydsl()).applyPagination(pageable, query);
 

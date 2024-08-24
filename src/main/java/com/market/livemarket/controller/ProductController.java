@@ -48,6 +48,18 @@ public class ProductController {
         return customFileUtil.getFile(fileName);
     }
 
+    // 사용자 검색
+    @GetMapping("/search")
+    public PageResponseDTO<ProductDTO> searchKeywordList(PageRequestDTO pageRequestDTO, @RequestParam(value="keyword") String keyword) {
+        return productService.getKeywordSearchList(pageRequestDTO, keyword);
+    }
+
+    // 판매 상품 목록 조회
+    @GetMapping("/myList")
+    public PageResponseDTO<ProductDTO> myList(PageRequestDTO pageRequestDTO, @RequestParam String email) {
+        return productService.getMyList(pageRequestDTO, email);
+    }
+
     // 상품 목록 조회
     @GetMapping("/list")
     public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
@@ -108,12 +120,6 @@ public class ProductController {
     @GetMapping("/categories/{category}")
     public PageResponseDTO<ProductDTO> categoryList(PageRequestDTO pageRequestDTO, @PathVariable("category") String category) {
         return productService.getCategorySearchList(pageRequestDTO, category);
-    }
-
-    // 사용자 검색
-    @GetMapping("/search")
-    public PageResponseDTO<ProductDTO> searchKeywordList(PageRequestDTO pageRequestDTO, @RequestParam(value="keyword") String keyword) {
-        return productService.getKeywordSearchList(pageRequestDTO, keyword);
     }
 
     // 오늘의 새상품 검색

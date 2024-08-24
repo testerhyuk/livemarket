@@ -45,6 +45,18 @@ public class MemberService {
                 .build();
     }
 
+    public void deleteMemberAccount(String email) {
+        memberRepository.deleteById(email);
+    }
+
+    public String getProfileImage(String email) {
+        Optional<Member> result = memberRepository.findById(email);
+
+        Member member = result.orElseThrow();
+
+        return member.getProfileImage();
+    }
+
     public void registerProfile(MemberProfileDTO memberProfileDTO) {
         Optional<Member> result = memberRepository.findById(memberProfileDTO.getEmail());
 
@@ -159,7 +171,15 @@ public class MemberService {
         return false;
     }
 
-    public void modifyMember(MemberModifyDTO memberModifyDTO) {
+    public boolean modifyMember(MemberModifyDTO memberModifyDTO) {
+        boolean isExists = memberRepository.existsByNickname(memberModifyDTO.getNickname());
+
+        boolean changed = Boolean.parseBoolean(memberModifyDTO.getIsChanged());
+
+        if(changed && isExists) {
+            return true;
+        }
+
         Optional<Member> result = memberRepository.findById(memberModifyDTO.getEmail());
         Member member = result.orElseThrow();
 
@@ -171,6 +191,8 @@ public class MemberService {
         member.changeDetailAddress(memberModifyDTO.getDetailAddress());
 
         memberRepository.save(member);
+
+        return false;
     }
 
     private String makeTempPassword() {

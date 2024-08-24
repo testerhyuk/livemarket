@@ -27,7 +27,8 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                 "/api/products/list",
                 "/api/products/view/",
                 "/api/products/read/",
-                "/api/products/today_product"
+                "/api/products/today_product",
+                "/api/products/categories/"
         };
         String path = request.getRequestURI();
 

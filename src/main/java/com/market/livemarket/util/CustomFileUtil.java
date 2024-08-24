@@ -138,6 +138,21 @@ public class CustomFileUtil {
         return ResponseEntity.ok().headers(headers).body(resource);
     }
 
+    // 프로필 이미지 삭제
+    public void deleteProfileImage(String fileName) {
+        if(fileName == null) {
+            return;
+        }
+
+        Path filePath = Paths.get(uploadPath, fileName);
+
+        try {
+            Files.deleteIfExists(filePath);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
     // 업로드된 파일 삭제
     public void deleteFiles(List<String> fileNames) {
         if(fileNames == null || fileNames.isEmpty()) {

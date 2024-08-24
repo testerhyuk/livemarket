@@ -30,9 +30,20 @@ public class MemberController {
         return memberService.getMembersInfo(email);
     }
 
+    // 회원 탈퇴
+    @PostMapping("/api/member/deleteMember")
+    public Map<String, String> deleteMember(String email) {
+        log.info("email : " + email);
+        memberService.deleteMemberAccount(email);
+
+        return Map.of("RESULT", "회원 탈퇴");
+    }
+
     // 프로필 이미지 등록
     @PostMapping("/api/member/profileImage")
     public Map<String, String> addProfileImage(MemberProfileDTO memberProfileDTO) {
+        String oldProfileImage = memberService.getProfileImage(memberProfileDTO.getEmail());
+
         MultipartFile file = memberProfileDTO.getFile();
 
         String uploadedFileNames = customFileUtil.saveProfile(file);
@@ -40,6 +51,10 @@ public class MemberController {
         memberProfileDTO.setUploadedFileNames(uploadedFileNames);
 
         memberService.registerProfile(memberProfileDTO);
+
+        if(oldProfileImage != null) {
+            customFileUtil.deleteProfileImage(oldProfileImage);
+        }
 
         return Map.of("RESULT", "SUCCESS");
     }
