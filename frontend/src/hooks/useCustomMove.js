@@ -57,7 +57,29 @@ const useCustomMove = () => {
         })
     }
 
-    return {moveToList, moveToModify, moveToRead, page, size, refresh}
+    // 판매 상품 페이지 이동
+    const moveToSales = () => {
+        navigate({
+            pathname: `../my_sales`,
+            search: queryDefault
+        })
+    }
+
+    // 회원 탈퇴 페이지 이동
+    const moveToDeleteAccount = () => {
+        navigate({
+            pathname:'../delete_account'
+        })
+    }
+
+    // 계정 연동 페이지 이동
+    const moveToAccountLinking = () => {
+        navigate({
+            pathname:'../account_linking'
+        })
+    }
+
+    return {moveToList, moveToModify, moveToRead, moveToSales, moveToDeleteAccount, moveToAccountLinking, page, size, refresh}
 }
 
 export default useCustomMove;

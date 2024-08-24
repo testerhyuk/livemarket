@@ -22,6 +22,22 @@ export const getList = async (pageParams) => {
 	return res.data
 }
 
+// 판매 상품 목록 조회
+export const salesProduct = async (pageParams, email) => {
+	const {page, size} = pageParams
+	const res = jwtAxios.get(`${host}/myList`, {params: {page:page, size:size, email:email}})
+
+	return res
+}
+
+// 카테고리 조회 페이지
+export const searchCategory = async (pageParams, categoryIdx) => {
+	const {page, size} = pageParams
+	const res = axios.get(`${host}/categories/${categoryIdx}`, {params: {page:page, size:size}})
+
+	return res
+}
+
 // 상품 상세 페이지
 export const getOne = async (pno) => {
     const res = await axios.get(`${host}/read/${pno}`)

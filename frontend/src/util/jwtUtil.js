@@ -45,20 +45,14 @@ const requestFail = (err) => {
 // before return response
 const beforeRes = async (res) => {
     const data = res.data
-    console.log('data', data)
-    console.log(getCookie('member').refreshToken)
 
     if(data && data.error === 'ERROR_ACCESS_TOKEN') {
         const memberCookieValue = getCookie('member')
-        console.log("membercookie : ", memberCookieValue)
+        
         const result = await refreshJWT(memberCookieValue.accessToken, memberCookieValue.refreshToken)
-
-        console.log("result : ", result)
 
         memberCookieValue.accessToken = result.accessToken
         memberCookieValue.refreshToken = result.refreshToken
-
-        console.log("refreshJWT RESULT", result)
 
         setCookie('member', JSON.stringify(memberCookieValue), 1)
 

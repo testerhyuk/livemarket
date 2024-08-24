@@ -15,8 +15,14 @@ const initState = {
     detailAddress: '',
 }
 
+const initStateCheckPassword = {
+    check_pw: ''
+}
+
 export default function RegisterComponent() {
     const [member, setMember] = useState(initState)
+
+    const [checkPassword, setCheckPassword] = useState(initStateCheckPassword)
 
     const [result, setResult] = useState(null)
 
@@ -52,6 +58,12 @@ export default function RegisterComponent() {
         setMember({...member})
     }
 
+    const handleChangeCheckPassword = (e) => {
+        checkPassword[e.target.name] = e.target.value
+
+        setCheckPassword({...checkPassword})
+    }
+
     const handleChangeNumber = (e) => {
         setValidateNumberEmail(e.target.value)
     }
@@ -77,14 +89,16 @@ export default function RegisterComponent() {
     }
 
     const handleClickRegister = () => {
-        if(emailIsValidated) {
+        if(emailIsValidated && checkPassword.check_pw === member.pw) {
             registerMember(member).then(result => {
                 setResult('회원가입')
             }).catch(err => {
                 setShowAlertMessage(err.response.data.ERROR)
             })
-        } else {
+        } else if(!emailIsValidated) {
             setShowAlertMessage('이메일이 인증되지 않았습니다')
+        } else if(checkPassword.check_pw !== member.pw) {
+            setShowAlertMessage('비밀번호와 비밀번호 확인값이 다릅니다. 확인해주세요.')
         }
     }
 
@@ -205,6 +219,14 @@ export default function RegisterComponent() {
 
             <Col sm="10" style={{width:'62%'}}>
                 <Form.Control className='form_control' type="password" name='pw' onChange={handleChange} value={member.pw} />
+            </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className='mb-3'>
+            <Form.Label className='form_label' column sm="2">비밀번호 확인</Form.Label>
+
+            <Col sm="10" style={{width:'62%'}}>
+                <Form.Control className='form_control' type="password" name='check_pw' onChange={handleChangeCheckPassword} value={checkPassword.check_pw || ''} />
             </Col>
         </Form.Group>
 

@@ -42,8 +42,11 @@ export default function BasicMenu() {
 
                 <Dropdown.Menu className='dropdown_menu'>
                     <Dropdown.Item className='all_products' as={Link} to={'/products/'}>전체 상품</Dropdown.Item>
-                    <Dropdown.Item>Another action</Dropdown.Item>
-                    <Dropdown.Item>Something else</Dropdown.Item>
+                    <Dropdown.Item className='category_0' as={Link} to={'/products/category/0'}>음식</Dropdown.Item>
+                    <Dropdown.Item className='category_1' as={Link} to={'/products/category/1'}>의류</Dropdown.Item>
+                    <Dropdown.Item className='category_2' as={Link} to={'/products/category/2'}>가전제품</Dropdown.Item>
+                    <Dropdown.Item className='category_3' as={Link} to={'/products/category/3'}>신발</Dropdown.Item>
+                    <Dropdown.Item className='category_4' as={Link} to={'/products/category/4'}>기타상품</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
             </li>

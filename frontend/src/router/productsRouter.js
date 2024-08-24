@@ -6,6 +6,7 @@ const ProductList = lazy(() => import('../pages/products/ListPage'))
 const ProductAdd = lazy(() => import('../pages/products/AddPage'))
 const ProductRead = lazy(() => import('../pages/products/ReadPage'))
 const ProductModify = lazy(() => import('../pages/products/ModifyPage'))
+const CategoryList = lazy(() => import('../pages/products/CategoryPage'))
 
 const productsRouter = () => {
     return [
@@ -28,6 +29,10 @@ const productsRouter = () => {
         {
             path:'modify/:pno',
             element: <Suspense fallback={<FetchingModal />}><ProductModify /></Suspense>
+        },
+        {
+            path:'category/:category_idx',
+            element: <Suspense fallback={<FetchingModal />}><CategoryList /></Suspense>
         }
     ]
 }
